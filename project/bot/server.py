@@ -12,26 +12,6 @@ def read_root():
     return {"Hello": "World"}
 
 
-class Action(BaseModel):
-    action: str | None = None
-
-    # {
-    #     "ToUserName": "用户OPENID",
-    #     "FromUserName": "公众号/小程序原始ID",
-    #     "CreateTime": "发送时间", // 整型，例如：1648014186
-    # "MsgType": "text",
-    # "Content": "文本消息"
-    # }
-
-
-class Text():
-    ToUserName: str | None = None
-    FromUserName: str | None = None
-    CreateTime: str | None = None
-    MsgType: str | None = None
-    Content: str | None = None
-
-
 @app.post("/check")
 async def create_item(request: Request):
     data = await request.json()
