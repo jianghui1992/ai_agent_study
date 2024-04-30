@@ -27,8 +27,8 @@ async def create_item(request: Request):
             "ToUserName": data["FromUserName"],
             "FromUserName": data["ToUserName"],
             "CreateTime": int(round(time.time())),
-            "MsgType": "收到了," + data["Content"],
-            "Content": "文本消息"
+            "MsgType": "text",
+            "Content": "收到了," + data["Content"]
         }
         # 将Python对象转换为JSON字符串
         json_string = json.dumps(response, ensure_ascii=False).encode('utf-8').decode()
