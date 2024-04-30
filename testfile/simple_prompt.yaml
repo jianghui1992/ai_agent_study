@@ -1,0 +1,6 @@
+# 指定模板类型
+_type: prompt
+# 指定模板参数
+input_variables: ["name","what"]
+# 定义模板
+template: 给我讲一个关于{name}的{what}故事
