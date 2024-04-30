@@ -1,8 +1,7 @@
-import logging
-
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi import Request
 
 app = FastAPI()
 
@@ -17,10 +16,14 @@ class Action(BaseModel):
 
 
 @app.post("/check")
-def check(query: Action):
-    # do something with query
-    print("query:", query)
-    return "success"
+async def create_item(request: Request):
+    data = await request.json()
+    # 判断data是否包含action字段
+    if "action" in data and data["action"] == "CheckContainerPath":
+        return "success"
+    else:
+        print("query:", data)
+        return data
 
 
 if __name__ == '__main__':
