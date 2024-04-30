@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi import Request
+import json
 
 app = FastAPI()
 
@@ -14,16 +15,42 @@ def read_root():
 class Action(BaseModel):
     action: str | None = None
 
+    # {
+    #     "ToUserName": "用户OPENID",
+    #     "FromUserName": "公众号/小程序原始ID",
+    #     "CreateTime": "发送时间", // 整型，例如：1648014186
+    # "MsgType": "text",
+    # "Content": "文本消息"
+    # }
+
+
+class Text():
+    ToUserName: str | None = None
+    FromUserName: str | None = None
+    CreateTime: str | None = None
+    MsgType: str | None = None
+    Content: str | None = None
+
 
 @app.post("/check")
 async def create_item(request: Request):
     data = await request.json()
+    print("query:", data)
     # 判断data是否包含action字段
     if "action" in data and data["action"] == "CheckContainerPath":
         return "success"
     else:
-        print("query:", data)
-        return data
+        response = {
+            "ToUserName": "用户OPENID",
+            "FromUserName": "公众号/小程序原始ID",
+            "CreateTime": "发送时间",
+            "MsgType": "text",
+            "Content": "文本消息"
+        }
+        # 将Python对象转换为JSON字符串
+        json_string = json.dumps(response)
+        print(json_string)
+        return response
 
 
 if __name__ == '__main__':
