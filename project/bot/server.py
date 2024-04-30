@@ -8,8 +8,11 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/check")
+
+@app.post("/check")
 def check():
+    # do something with query
+    # print("query:", query)
     return "success"
 
 
